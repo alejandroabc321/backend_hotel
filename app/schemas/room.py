@@ -1,8 +1,18 @@
 from pydantic import BaseModel
-precio: float
-descripcion: str
-class RoomCreate(RoomBase): pass
+
+
+class RoomBase(BaseModel):
+    precio: float
+    descripcion: str
+
+
+class RoomCreate(RoomBase):
+    pass
+
+
 class RoomResponse(RoomBase):
-id: int
-class Config:
-orm_mode = True
+    id: int
+
+    model_config = {
+        "from_attributes": True
+    }
