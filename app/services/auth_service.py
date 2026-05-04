@@ -5,11 +5,11 @@ from app.schemas.user import UserCreate
 from app.core.security import get_password_hash, verify_password, create_access_token
 
 def get_user_by_email(db: Session, email: str):
-    """Busca un usuario en la base de datos de PostgreSQL por su correo electrónico."""[cite: 2]
+    """Busca un usuario en la base de datos de PostgreSQL por su correo electrónico."""
     return db.query(User).filter(User.email == email).first()
 
 def register_user(db: Session, user_data: UserCreate):
-    """Lógica para registrar un nuevo usuario con contraseña encriptada."""[cite: 2]
+    """Lógica para registrar un nuevo usuario con contraseña encriptada."""
     existing_user = get_user_by_email(db, user_data.email)
     if existing_user:
         raise HTTPException(
@@ -31,7 +31,7 @@ def register_user(db: Session, user_data: UserCreate):
     return new_user
 
 def authenticate_user(db: Session, email: str, password: str):
-    """Valida si las credenciales son correctas pero no genera el token aún."""[cite: 2]
+    """Valida si las credenciales son correctas pero no genera el token aún."""
     user = get_user_by_email(db, email)
     if not user:
         return None
@@ -42,7 +42,7 @@ def authenticate_user(db: Session, email: str, password: str):
     return user
 
 def login_user(db: Session, email: str, password: str):
-    """Lógica final de login que genera el token JWT para el usuario."""[cite: 2]
+    """Lógica final de login que genera el token JWT para el usuario."""
     user = authenticate_user(db, email, password)
     if not user:
         raise HTTPException(

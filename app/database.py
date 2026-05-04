@@ -2,15 +2,16 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from app.core.config import settings
 
-# echo=False evita que la consola se llene con cada comando SQL (puedes ponerlo en True para debuggear)
+# engine se encarga de la conexión física a PostgreSQL
 engine = create_engine(settings.DATABASE_URL, echo=False)
 
+# SessionLocal es la fábrica de sesiones para interactuar con los datos
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
 def get_db():
-    """Inyección de dependencia para obtener la sesión de la base de datos."""[cite: 2]
+    """Inyección de dependencia para obtener la sesión de la base de datos."""
     db = SessionLocal()
     try:
         yield db

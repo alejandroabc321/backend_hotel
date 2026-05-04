@@ -12,12 +12,12 @@ router = APIRouter(prefix="/auth", tags=["Autenticación"])
 
 @router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 def register(user: UserCreate, db: Session = Depends(get_db)):
-    """Ruta para registrar nuevos usuarios en el sistema."""[cite: 2]
+    """Ruta para registrar nuevos usuarios en el sistema."""
     return register_user(db, user)
 
 @router.post("/login", response_model=Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    """Ruta de inicio de sesión que devuelve el token JWT."""[cite: 2]
+    """Ruta de inicio de sesión que devuelve el token JWT."""
     # OAuth2PasswordRequestForm usa "username", aquí lo interpretamos como email
     return login_user(db, form_data.username, form_data.password)
 
@@ -26,7 +26,7 @@ def get_current_user(
     token: str = Depends(oauth2_scheme),
     db: Session = Depends(get_db)
 ):
-    """Ruta protegida que devuelve la información del usuario actual autenticado."""[cite: 2]
+    """Ruta protegida que devuelve la información del usuario actual autenticado."""
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="No se pudo validar el token",
